@@ -20,11 +20,18 @@ def process_pid_year_doctype():
     pid_pubyear = {}
     pid_doctype = {}
 
+    process = 0
+
     # 数量统计
     year_num = defaultdict(int)
     # doctype分布
     doctype_num = defaultdict(int)
     for paper_id,year,doc_type in query_op.query_database(sql):
+
+        process+=1
+
+        if process%100000==0:
+            logging.info(f'progress {process} ....')
 
         pid_pubyear[paper_id] = year
         pid_doctype[paper_id] = doc_type
@@ -56,6 +63,8 @@ def process_pid_year_doctype():
     plt.savefig('fig/year_num.png',dpi=200)
     logging.info('year num dis fig saved to fig/year_num.png.')
 
+    open('data/year_num.json','w').write(json.dumps(year_num))
+
     # doctype的分布
 
     docs = []
@@ -82,7 +91,13 @@ def process_pid_year_doctype():
 
     logging.info('fig saved to fig/doctype_num.png')
 
+    open('data/doctype_num.json','w').write(json.dumps(doctype_num))
+
+    logging.info('Total number of papers:{}.'.format(np.sum(year_num.values())))
+
+
 if __name__ == '__main__':
+    # 获取论文的发布时间及文档类型
     process_pid_year_doctype()
 
 
