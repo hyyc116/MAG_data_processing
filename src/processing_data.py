@@ -96,8 +96,181 @@ def process_pid_year_doctype():
     logging.info('Total number of papers:{}.'.format(np.sum(year_num.values())))
 
 
+# 丛数据库中将参考文献关系存储下来,先不存了 直接读吧 感觉有点多啊
+def process_pid_refs():
+
+    query_op = dbop()
+
+    # 首先是读取 mag_core.papers
+    sql = 'select paper_id,paper_reference_id from mag_core.paper_references'
+    
+    logging.info('starting to read paper pubyear paper doctype.')
+    
+    # ref_file =  open('data/pid_refs.txt','w')    
+
+    refnum_count = defaultdict(int)
+    pid_cn = defaultdict(int)
+
+    pid_refs = defaultdict(list)
+
+    process = 0
+
+    ref_lines = []
+    for paper_id,paper_reference_id in query_op.query_database(sql):
+
+        process+=1
+
+        if process%100000==0:
+            logging.info(f'progress {process} ....')
+
+        pid_refs[paper_id].append(paper_reference_id)
+
+        pid_cn[paper_reference_id]+=1
+
+    logging.info(f'total num of references {process} ...')
+
+
+    # 首先是遍历存储
+    saved_data = {}
+    for pid in pid_refs.keys():
+        refnum = len(pid_refs[pid])
+
+        refnum_count[refnum]+=1
+
+    # 统计参考文献数量分布
+
+    refnums = []
+    count = []
+
+    for refnum in sorted(refnum_count.keys()):
+
+        refnums.append(refnum)
+        count.append(refnum_count[refnum])
+
+    plt.figure(figsize=(7,5))
+
+    plt.plot(refnums,count)
+
+    plt.xlabel('number of references')
+
+    plt.ylabel('number of publications')
+
+    plt.xscale('log')
+
+    plt.yscale('log')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/refnum_dis.png',dpi=200)
+
+    open('data/refnum_count.json','w').write(refnum_count)
+
+    logging.info('fig saved to fig/refnum_dis.png')
+
+
+
+    # 引用次数分布
+    open('data/pid_cn.json','w').write(pid_cn)
+
+    value_counter = Counter(pid_cn.values())
+    cns = []
+    nums = []
+    for value in sorted(value_counter.keys(),key=lambda x:int(x)):
+
+        cns.append(value)
+        nums.append(value_counter[value])
+
+    plt.figure(figsize=(7,5))
+
+    plt.plot(cns,nums)
+
+    plt.xscale('log')
+
+    plt.yscale('log')
+
+    plt.xlabel('number of citations')
+
+    plt.ylabel('number of publications')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/cn_dis.png',dpi=200)
+
+    logging.info('fig saved to fig/cn_dis.png')
+
+# 丛数据库中将参考文献关系存储下来,先不存了 直接读吧 感觉有点多啊
+def process_pid_author():
+
+    query_op = dbop()
+
+    # 首先是读取 mag_core.papers
+    sql = 'select paper_id,author_id,author_sequence_number from mag_core.paper_author_affiliations'
+    
+    logging.info('starting to read paper pubyear paper doctype.')
+    
+    pid_seq_author = defaultdict(dict)
+
+    author_prod = defaultdict(int)
+
+    process = 0
+
+    ref_lines = []
+    for paper_id,author_id,author_sequence_number in query_op.query_database(sql):
+
+        process+=1
+
+        if process%100000==0:
+            logging.info(f'progress {process} ....')
+
+
+        pid_seq_author[paper_id][author_sequence_number] = author_id
+
+        author_prod[author_id]+=1
+
+    open('data/pid_seq_author.json','w').write(json.dumps(pid_seq_author))
+
+    open('data/author_prod.json','w').write(json.dumps(author_prod))
+
+    prods = []
+    nums = []
+
+    prod_counter = Counter(author_prod.values())
+
+    for prod in sorted(prod_counter.keys()):
+
+        prods.append(prod)
+        nums.append(prod_counter[prod])
+
+    plt.figure(figsize=(7,5))
+
+    plt.plot(prods,nums)
+
+    plt.xscale('log')
+
+    plt.yscale('log')
+
+    plt.xlabel('author productivity')
+
+    plt.xlabel('number of authors')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/author_prod.png',dpi=200)
+
+    print('fig saved to fig/author_prod.png.')
+
+
 if __name__ == '__main__':
     # 获取论文的发布时间及文档类型
-    process_pid_year_doctype()
+    # process_pid_year_doctype()
+
+    # 参考文献的统计
+
+    process_pid_refs()
+
+    # 作者数据
+
+    process_pid_author()
+
 
 
