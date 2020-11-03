@@ -172,7 +172,7 @@ def process_pid_refs():
 
 
     # 引用次数分布
-    open('data/pid_cn.json','w').write(pid_cn)
+    open('data/pid_cn.json','w').write(json.dumps(pid_cn))
 
     value_counter = Counter(pid_cn.values())
     cns = []
