@@ -32,7 +32,7 @@ from matplotlib.colors import LogNorm
 from matplotlib.colors import LinearSegmentedColormap
 from networkx.algorithms.core import core_number
 from networkx.algorithms.core import k_core
-# import psycopg2
+import psycopg2
 from cycler import cycler
 import statsmodels.api as sm
 lowess = sm.nonparametric.lowess
