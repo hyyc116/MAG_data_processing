@@ -99,6 +99,8 @@ def process_pid_year_doctype():
 # 丛数据库中将参考文献关系存储下来,先不存了 直接读吧 感觉有点多啊
 def process_pid_refs():
 
+    # 1,399,752,645 reference relations
+
     query_op = dbop()
 
     # 首先是读取 mag_core.papers
@@ -163,7 +165,7 @@ def process_pid_refs():
 
     plt.savefig('fig/refnum_dis.png',dpi=200)
 
-    open('data/refnum_count.json','w').write(refnum_count)
+    open('data/refnum_count.json','w').write(json.dumps(refnum_count))
 
     logging.info('fig saved to fig/refnum_dis.png')
 
