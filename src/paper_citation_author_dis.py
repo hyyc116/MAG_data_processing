@@ -23,13 +23,13 @@ def rand_select_papers():
 
         cn = int(pid_cn[pid])
 
-        if pid>=1000:
+        if cn>=1000:
             pid_1000.append(pid)
-        elif pid>=500:
+        elif cn>=500:
             pid_500.append(pid)
-        elif pid>=100:
+        elif cn>=100:
             pid_100.append(pid)
-        elif pid>=50:
+        elif cn>=50:
             pid_50.append(pid)
 
 
