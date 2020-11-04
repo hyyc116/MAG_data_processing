@@ -88,7 +88,7 @@ def stat_cit_dis():
 
             for cit in cits:
 
-                if pid_seq_author.get(pid,None) is None:
+                if pid_seq_author.get(cit,None) is None:
                     continue
 
                 for author in  pid_seq_author[cit].values():
