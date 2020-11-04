@@ -98,7 +98,7 @@ def stat_cit_dis():
 
     fig,axes = plt.subplots(10,10,figsize=(40,35))
 
-    for i,pid in enumerate(pid_author_num.keys()[:100]):
+    for i,pid in enumerate(list(pid_author_num.keys())[:100]):
 
         ax = axes[i//10][i%10]
 
