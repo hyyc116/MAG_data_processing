@@ -92,7 +92,10 @@ def stat_cit_dis():
                     continue
 
                 # for author in  pid_seq_author[cit].values():
-                author = pid_seq_author[cit]['1']
+                try:
+                    author = pid_seq_author[cit]['1']
+                except:
+                    print(pid_seq_author[cit])
 
                 pid_author_num[pid][author]+=1
 
