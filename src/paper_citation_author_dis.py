@@ -102,7 +102,7 @@ def stat_cit_dis():
 
     pids = np.random.choice(list(pid_author_num.keys()),size=100)
 
-    for i,pid in enumerate(sorted(pids,key=lambda x:len(selected_pid_cits[pid]))):
+    for i,pid in enumerate(sorted(pids,key=lambda x:len(selected_pid_cits[x]))):
 
         ax = axes[i//10][i%10]
 
