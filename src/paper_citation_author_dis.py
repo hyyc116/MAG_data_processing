@@ -69,6 +69,69 @@ def rand_select_papers():
 
     query_op.close_db()
 
+# 统计
+def stat_cit_dis():
+
+    # 文章 作者
+    pid_seq_author = json.loads(open('data/pid_seq_author.json').read())
+    # 文档
+    selected_pid_cits = json.loads(open('data/selected_pid_cits.json').read())
+
+    pid_author_num = defaultdict(lambda:defaultdict(int))
+
+    # 
+    for pid in selected_pid_cits.keys():
+
+        cits = selected_pid_cits[pid]
+
+        if len(cits)>1000:
+
+            for cit in cits:
+
+                for author in  pid_seq_author[cit].values():
+
+                    pid_author_num[pid][author]+=1
+
+
+    fig,axes = plt.subplots(10,10,figsize=(40,35))
+
+    for i,pid in enumerate(pid_author_num.keys()[:100]):
+
+        ax = axes[i//10][i%10]
+
+        author_num = pid_author_num[pid]
+
+        num_counter = Counter(author_num.values())
+
+        nums = []
+
+        counts = []
+
+        for num in sorted(num_counter.keys()):
+
+            nums.append(num)
+            counts.append(num_counter[num])
+
+
+        ax.plot(nums,counts)
+
+        ax.set_xlabel('number of citations')
+
+        ax.set_ylabel('number of authors')
+
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+
+
+
+    plt.tight_layout()
+
+    plt.savefig('fig/t1000_100.png',dpi=200)
+
+    logging.info('fig saved.')
+
 
 if __name__ == '__main__':
-    rand_select_papers()
+    # rand_select_papers()
+
+    stat_cit_dis()
