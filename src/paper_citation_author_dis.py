@@ -100,7 +100,7 @@ def stat_cit_dis():
 
     fig,axes = plt.subplots(10,10,figsize=(40,35))
 
-    pids = np.random.choice(pid_author_num.keys(),size=100)
+    pids = np.random.choice(list(pid_author_num.keys()),size=100)
 
     for i,pid in enumerate(sorted(pids,key=lambda x:len(selected_pid_cits[pid]))):
 
