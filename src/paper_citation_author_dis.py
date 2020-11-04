@@ -89,13 +89,13 @@ def stat_cit_dis():
             if pid_seq_author.get(cit,None) is None:
                 continue
 
-            # for author in  pid_seq_author[cit].values():
-            try:
-                author = pid_seq_author[cit]['1']
-            except:
-                print(pid_seq_author[cit])
+            for author in  pid_seq_author[cit].values():
+            # try:
+                # author = pid_seq_author[cit]['1']
+            # except:
+                # print(pid_seq_author[cit])
 
-            pid_author_num[pid][author]+=1
+                pid_author_num[pid][author]+=1
 
 
     fig,axes = plt.subplots(10,10,figsize=(40,35))
