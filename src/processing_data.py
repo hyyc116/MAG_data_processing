@@ -253,7 +253,7 @@ def process_pid_author():
 
     plt.xlabel('author productivity')
 
-    plt.xlabel('number of authors')
+    plt.ylabel('number of authors')
 
     plt.tight_layout()
 
