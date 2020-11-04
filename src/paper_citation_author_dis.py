@@ -84,25 +84,25 @@ def stat_cit_dis():
 
         cits = selected_pid_cits[pid]
 
-        if len(cits)>1000:
+        for cit in cits:
 
-            for cit in cits:
+            if pid_seq_author.get(cit,None) is None:
+                continue
 
-                if pid_seq_author.get(cit,None) is None:
-                    continue
+            # for author in  pid_seq_author[cit].values():
+            try:
+                author = pid_seq_author[cit]['1']
+            except:
+                print(pid_seq_author[cit])
 
-                # for author in  pid_seq_author[cit].values():
-                try:
-                    author = pid_seq_author[cit]['1']
-                except:
-                    print(pid_seq_author[cit])
-
-                pid_author_num[pid][author]+=1
+            pid_author_num[pid][author]+=1
 
 
     fig,axes = plt.subplots(10,10,figsize=(40,35))
 
-    for i,pid in enumerate(list(pid_author_num.keys())[:100]):
+    pids = np.random.choice(pid_author_num.keys(),size=100)
+
+    for i,pid in enumerate(sorted(pids,key=lambda x:len(selected_pid_cits[pid]))):
 
         ax = axes[i//10][i%10]
 
@@ -121,6 +121,8 @@ def stat_cit_dis():
 
 
         ax.plot(nums,counts)
+
+        ax.set_title(len(selected_pid_cits[pid]))
 
         ax.set_xlabel('number of citations')
 
