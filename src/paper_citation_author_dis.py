@@ -251,6 +251,8 @@ def plot_author_ref_dis():
 
         ax.plot(xs,ys)
 
+        ax.set_title(len(papers))
+
         ax.set_xlabel('number of citations')
 
         ax.set_ylabel('number of refs')
