@@ -69,7 +69,7 @@ def rand_select_papers():
 
     query_op.close_db()
 
-# 统计
+# 统计一篇论文被引用的作者引用次数分布
 def stat_cit_dis():
 
     # 文章 作者
@@ -140,7 +140,68 @@ def stat_cit_dis():
     logging.info('fig saved.')
 
 
+# 高产作者中 参考文献被重复引用的次数分布
+def author_ref_dis():
+
+    pid_seq_author = json.loads(open('data/pid_seq_author.json').read())
+
+    # 作者
+    author_plist = defaultdict(list)
+    for pid in pid_seq_author.keys():
+
+        for author in pid_seq_author[pid].values():
+
+            author_plist[author].append(pid)
+
+    # 高产作者
+    t100_authors = []
+    # 对应的论文
+    all_plist = []
+    for author in author_plist.keys():
+
+        plist = author_plist[author]
+
+        all_plist.extend(plist)
+
+        if len(plist)>100 and len(plist)<1000:
+            t100_authors.append(author)
+
+
+    t100_authors = set(t100_authors)
+    logging.info(f'{len(t100_authors)} authors has 100-1000 papers.')
+
+    all_plist = set(all_plist)
+
+
+    ## 从引用关系中过滤得到这些ID的被引论文
+    query_op = dbop()
+
+    pid_refs = defaultdict(list)
+
+    # 首先是读取 mag_core.papers
+    sql = 'select paper_id,paper_reference_id from mag_core.paper_references'
+    process = 0
+    for paper_id,paper_reference_id in query_op.query_database(sql):
+        process+=1
+        if process%100000000==0:
+            logging.info(f'progress {process} ....')
+
+        if paper_id in all_plist:
+
+            pid_refs[paper_id].append(paper_reference_id)
+
+
+    # 存下来
+    open('data/selected_paper_refs.json','w').write(json.dumps(pid_refs))
+
+    logging.info("data saved to data/selected_paper_refs.json.")
+
+
+
+
 if __name__ == '__main__':
     # rand_select_papers()
 
-    stat_cit_dis()
+    # stat_cit_dis()
+
+    author_ref_dis()
