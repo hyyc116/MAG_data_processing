@@ -11,6 +11,8 @@ def rand_select_papers():
     # 论文id
     pid_cn = json.loads(open('data/pid_cn.json').read())
 
+    pid_10 = []
+
     pid_50 = []
 
     pid_100 = []
@@ -31,6 +33,8 @@ def rand_select_papers():
             pid_100.append(pid)
         elif cn>=50:
             pid_50.append(pid)
+        elif cn>=10:
+            pid_10.append(pid)
 
 
     selected_pids = []
@@ -39,6 +43,8 @@ def rand_select_papers():
     selected_pids.extend(np.random.choice(pid_500,size=500))
     selected_pids.extend(np.random.choice(pid_100,size=500))
     selected_pids.extend(np.random.choice(pid_50,size=500))
+    selected_pids.extend(np.random.choice(pid_10,size=500))
+
 
     selected_pids = set(selected_pids)
 
