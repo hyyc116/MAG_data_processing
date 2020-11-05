@@ -226,6 +226,9 @@ def plot_author_ref_dis():
         # 作者的论文，查看查考文献
         for paper in papers:
 
+            if paper_refs.get(paper,None) is None:
+                continue
+
             for ref in paper_refs[paper]:
                 
                 ref_count[ref]+=1
