@@ -243,7 +243,7 @@ def plot_author_ref_dis():
 
         xs = []
         ys = []
-        for refnum in refnum_counter.keys():
+        for refnum in sorted(refnum_counter.keys()):
 
             xs.append(refnum)
 
