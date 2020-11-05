@@ -157,6 +157,9 @@ def author_ref_dis():
     t100_authors = []
     # 对应的论文
     all_plist = []
+    # 选择的高被引作者
+    t100_author_plist = {}
+
     for author in author_plist.keys():
 
         plist = author_plist[author]
@@ -166,12 +169,18 @@ def author_ref_dis():
         if len(plist)>100 and len(plist)<1000:
             t100_authors.append(author)
 
+            t100_author_plist[author] = plist
+
 
     t100_authors = set(t100_authors)
     logging.info(f'{len(t100_authors)} authors has 100-1000 papers.')
 
     all_plist = set(all_plist)
 
+
+    open('data/t100_author_papers.json','w').write(json.dumps(t100_author_plist))
+
+    logging.info('data saved to data/t100_author_papers.json.')
 
     ## 从引用关系中过滤得到这些ID的被引论文
     query_op = dbop()
@@ -193,8 +202,21 @@ def author_ref_dis():
 
     # 存下来
     open('data/selected_paper_refs.json','w').write(json.dumps(pid_refs))
-
     logging.info("data saved to data/selected_paper_refs.json.")
+
+# 随机选择100位作者 将他们的参考文献引用次数分布画出来
+def plot_author_ref_dis():
+    # 生产力大于100的作者的论文
+    t100_author_papers = json.loads(open('data/t100_author_papers.json').read())
+    #  论文参考文献关系
+    paper_refs = json.loads(open('data/selected_paper_refs.json').read())
+
+    # 随机选取100位作者,查看他们的引用次数分布情况
+    authors = np.random.choice(list(t100_author_papers.keys()),size=100)
+
+    # 作者的数量
+    for author in authors:
+        papers = t100_author_papers[author]
 
 
 
