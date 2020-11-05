@@ -214,10 +214,46 @@ def plot_author_ref_dis():
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(list(t100_author_papers.keys()),size=100)
 
+    fig,axes = plt.subplots(10,10,figsize=(50,40))
+
     # 作者的数量
-    for author in authors:
+    for i,author in enumerate(authors):
         papers = t100_author_papers[author]
 
+        ax = axes[i//10][i%10]
+
+        ref_count = defaultdict(int)
+        # 作者的论文，查看查考文献
+        for paper in papers:
+
+            for ref in paper_refs[paper]:
+                
+                ref_count[ref]+=1
+
+        refnum_counter = Counter(ref_count.values())
+
+        xs = []
+        ys = []
+        for refnum in refnum_counter.keys():
+
+            xs.append(refnum)
+
+            ys.append(refnum_counter[refnum])
+
+        ax.plot(xs,ys)
+
+        ax.set_xlabel('number of citations')
+
+        ax.set_ylabel('number of refs')
+
+        ax.set_xscale('log')
+
+        ax.set_yscale('log')
+
+
+    plt.tight_layout()
+
+    plt.savefig('fig/paper_ref_cit_dis.png',dpi=200)
 
 
 
