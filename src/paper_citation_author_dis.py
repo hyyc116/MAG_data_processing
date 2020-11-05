@@ -254,7 +254,7 @@ def plot_author_ref_dis():
     plt.tight_layout()
 
     plt.savefig('fig/paper_ref_cit_dis.png',dpi=200)
-
+    logging.info('fig saved to fig/paper_ref_cit_dis.png.')
 
 
 if __name__ == '__main__':
