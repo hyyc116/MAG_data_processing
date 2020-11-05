@@ -126,7 +126,7 @@ def stat_cit_dis():
             counts.append(num_counter[num])
 
 
-        ax.plot(nums,counts)
+        ax.plot(nums,counts,'-o')
 
         ax.set_title(len(selected_pid_cits[pid]))
 
@@ -249,7 +249,7 @@ def plot_author_ref_dis():
 
             ys.append(refnum_counter[refnum])
 
-        ax.plot(xs,ys)
+        ax.plot(xs,ys,'-o')
 
         ax.set_title(len(papers))
 
@@ -271,7 +271,7 @@ def plot_author_ref_dis():
 if __name__ == '__main__':
     # rand_select_papers()
 
-    # stat_cit_dis()
+    stat_cit_dis()
 
     # author_ref_dis()
     
