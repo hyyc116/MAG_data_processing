@@ -172,7 +172,7 @@ def author_ref_dis():
 
         all_plist.extend(plist)
 
-        if len(plist)>100 and len(plist)<1000:
+        if len(plist)>10 and len(plist)<1000:
             t100_authors.append(author)
 
             t100_author_plist[author] = plist
@@ -271,8 +271,8 @@ def plot_author_ref_dis():
 if __name__ == '__main__':
     # rand_select_papers()
 
-    stat_cit_dis()
+    # stat_cit_dis()
 
-    # author_ref_dis()
+    author_ref_dis()
     
     plot_author_ref_dis()
