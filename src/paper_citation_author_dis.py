@@ -193,7 +193,7 @@ def stat_cit_dis():
 
     plt.xlabel('number of citations')
 
-    plt.ylabel('$\alpha $')
+    plt.ylabel('a')
 
     # plt.xscale('log')
 
