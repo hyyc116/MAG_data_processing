@@ -210,6 +210,9 @@ def fit_powlaw_N1(nums,counts):
         if counts[i]==1:
             N1 = num
             break
+    
+    if  N1  is None:
+        N1 = nums[-1]
 
     counts = np.array(counts)/float(np.sum(counts))
 
