@@ -91,8 +91,6 @@ def stat_cit_dis():
 
         cits = selected_pid_cits[pid]
 
-        if len(cits)==1:
-            continue
 
         for cit in cits:
 
@@ -131,6 +129,9 @@ def stat_cit_dis():
 
             nums.append(num)
             counts.append(num_counter[num])
+        
+        if len(nums)==1:
+            continue
 
 
         ax.plot(nums,counts,'-o')
