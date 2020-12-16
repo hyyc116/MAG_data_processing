@@ -201,6 +201,7 @@ def stat_cit_dis():
 
     plt.savefig('fig/paper_cn_a.png',dpi=400)
 
+                                              
 
 def fit_powlaw_N1(nums,counts):
     print(len(nums),len(counts))
