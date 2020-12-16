@@ -108,7 +108,7 @@ def stat_cit_dis():
 
     fig,axes = plt.subplots(10,10,figsize=(40,35))
 
-    pids = np.random.choice(list(pid_author_num.keys()),size=100)
+    pids = np.random.choice(list(pid_author_num.keys()),size=300)
 
     cn_n1s = defaultdict(list)
     cn_as = defaultdict(list)
@@ -174,7 +174,7 @@ def stat_cit_dis():
 
     plt.ylabel('max N1')
 
-    # plt.xscale('log')
+    plt.xscale('log')
 
     plt.tight_layout()
 
@@ -195,7 +195,7 @@ def stat_cit_dis():
 
     plt.ylabel('a')
 
-    # plt.xscale('log')
+    plt.xscale('log')
 
     plt.tight_layout()
 
