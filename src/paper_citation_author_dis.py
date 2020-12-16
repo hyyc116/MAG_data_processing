@@ -106,7 +106,7 @@ def stat_cit_dis():
                 pid_author_num[pid][author]+=1
 
 
-    fig,axes = plt.subplots(10,10,figsize=(40,35))
+    fig,axes = plt.subplots(30,10,figsize=(40,35))
 
     pids = np.random.choice(list(pid_author_num.keys()),size=300)
 
