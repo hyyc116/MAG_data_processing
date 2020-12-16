@@ -201,7 +201,7 @@ def stat_cit_dis():
 def fit_powlaw_N1(nums,counts):
 
     N1 = None
-    for i,num in nums:
+    for i,num in enumerate(nums):
         if counts[i]==1:
             N1 = num
 
