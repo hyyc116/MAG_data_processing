@@ -3,6 +3,7 @@
 
 [一篇论文被一位作者反复引用，那么这些作者引用次数的分布是怎样的]
 '''
+from networkx.utils.misc import default_opener
 from basic_config import *
 
 # 随机选择100篇大于1000次引用的论文，然后得到他们的被引论文的ID列表
@@ -108,6 +109,9 @@ def stat_cit_dis():
 
     pids = np.random.choice(list(pid_author_num.keys()),size=100)
 
+    cn_n1s = defaultdict(list)
+    cn_as = defaultdict(list)
+
     for i,pid in enumerate(sorted(pids,key=lambda x:len(selected_pid_cits[x]))):
 
         ax = axes[i//10][i%10]
@@ -128,7 +132,9 @@ def stat_cit_dis():
 
         ax.plot(nums,counts,'-o')
 
-        ax.set_title(len(selected_pid_cits[pid]))
+        cn =  len(selected_pid_cits[pid])
+
+        ax.set_title(cn)
 
         ax.set_xlabel('number of citations')
 
@@ -137,6 +143,11 @@ def stat_cit_dis():
         ax.set_xscale('log')
         ax.set_yscale('log')
 
+        N1,a = fit_powlaw_N1(nums,counts)
+
+        cn_n1s[cn].append(N1)
+        cn_as[cn].append(a)
+
 
 
     plt.tight_layout()
@@ -144,6 +155,63 @@ def stat_cit_dis():
     plt.savefig('fig/t1000_100.png',dpi=200)
 
     logging.info('fig saved.')
+
+    xs = []
+    ys = []
+    for cn in sorted(cn_n1s.keys()):
+        xs.append(cn)
+        ys.append(np.mean(cn_n1s[cn]))
+    
+    plt.figure(figsize=(5,4))
+
+    plt.plot(xs,ys,'o',fillstyle='none')
+
+    plt.xlabel('number of citations')
+
+    plt.ylabel('max N1')
+
+    # plt.xscale('log')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/paper_cn_n1.png',dpi=400)
+
+
+    xs = []
+    ys = []
+    for cn in sorted(cn_as.keys()):
+        xs.append(cn)
+        ys.append(np.mean(cn_as[cn]))
+    
+    plt.figure(figsize=(5,4))
+
+    plt.plot(xs,ys,'o',fillstyle='none')
+
+    plt.xlabel('number of citations')
+
+    plt.ylabel('$\alpha $')
+
+    # plt.xscale('log')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/paper_cn_a.png',dpi=400)
+
+
+def fit_powlaw_N1(nums,counts):
+
+    N1 = None
+    for i,num in nums:
+        if counts[i]==1:
+            N1 = num
+
+    counts = np.array(counts)/float(np.sum(counts))
+
+    linear_func = lambda x,a,b:a*x+b
+
+    a,_ = scipy.optimize.curve_fit(linear_func,np.log(nums),np.log(counts))[0]
+
+    return N1,a
 
 
 # 高产作者中 参考文献被重复引用的次数分布
@@ -272,8 +340,8 @@ def plot_author_ref_dis():
 if __name__ == '__main__':
     # rand_select_papers()
 
-    # stat_cit_dis()
+    stat_cit_dis()
 
-    author_ref_dis()
+    # author_ref_dis()
     
-    plot_author_ref_dis()
+    # plot_author_ref_dis()
