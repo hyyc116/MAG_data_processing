@@ -209,6 +209,7 @@ def fit_powlaw_N1(nums,counts):
     for i,num in enumerate(nums):
         if counts[i]==1:
             N1 = num
+            break
 
     counts = np.array(counts)/float(np.sum(counts))
 
@@ -216,6 +217,7 @@ def fit_powlaw_N1(nums,counts):
 
     a,_ = scipy.optimize.curve_fit(linear_func,np.log(nums),np.log(counts))[0]
 
+    print(N1,a)
     return N1,a
 
 
