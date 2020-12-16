@@ -91,6 +91,9 @@ def stat_cit_dis():
 
         cits = selected_pid_cits[pid]
 
+        if len(cits)==1:
+            continue
+
         for cit in cits:
 
             if pid_seq_author.get(cit,None) is None:
