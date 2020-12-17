@@ -3,8 +3,8 @@
 
 [一篇论文被一位作者反复引用，那么这些作者引用次数的分布是怎样的]
 '''
-from networkx.utils.misc import default_opener
 from basic_config import *
+
 
 # 随机选择100篇大于1000次引用的论文，然后得到他们的被引论文的ID列表
 
@@ -108,9 +108,10 @@ def stat_cit_dis():
     cn_n1s = defaultdict(list)
     cn_as = defaultdict(list)
 
-    for i, pid in enumerate(sorted(pids, key=lambda x: len(selected_pid_cits[x]))):
+    for i, pid in enumerate(
+            sorted(pids, key=lambda x: len(selected_pid_cits[x]))):
 
-        ax = axes[i//10][i % 10]
+        ax = axes[i // 10][i % 10]
 
         author_num = pid_author_num[pid]
 
@@ -123,6 +124,7 @@ def stat_cit_dis():
         for num in sorted(num_counter.keys()):
 
             nums.append(num)
+
             counts.append(num_counter[num])
 
         if len(nums) == 1:
@@ -139,11 +141,13 @@ def stat_cit_dis():
         ax.set_ylabel('number of authors')
 
         ax.set_xscale('log')
+
         ax.set_yscale('log')
 
         N1, a = fit_powlaw_N1(nums, counts)
 
         cn_n1s[cn].append(N1)
+
         cn_as[cn].append(a)
 
     plt.tight_layout()
@@ -155,7 +159,9 @@ def stat_cit_dis():
     xs = []
     ys = []
     for cn in sorted(cn_n1s.keys()):
+
         xs.append(cn)
+
         ys.append(np.mean(cn_n1s[cn]))
 
     plt.figure(figsize=(5, 4))
@@ -173,9 +179,13 @@ def stat_cit_dis():
     plt.savefig('fig/paper_cn_n1.png', dpi=400)
 
     xs = []
+
     ys = []
+
     for cn in sorted(cn_as.keys()):
+
         xs.append(cn)
+
         ys.append(np.mean(cn_as[cn]))
 
     plt.figure(figsize=(5, 4))
@@ -194,9 +204,11 @@ def stat_cit_dis():
 
 
 def fit_powlaw_N1(nums, counts):
+
     print(len(nums), len(counts))
 
     N1 = None
+
     for i, num in enumerate(nums):
         if counts[i] == 1:
             N1 = num
@@ -205,12 +217,12 @@ def fit_powlaw_N1(nums, counts):
     if N1 is None:
         N1 = nums[-1]
 
-    counts = np.array(counts)/float(np.sum(counts))
+    counts = np.array(counts) / float(np.sum(counts))
 
-    def linear_func(x, a, b): return a*x+b
+    linear_func = lambda x, a, b: a * x + b
 
-    a, _ = scipy.optimize.curve_fit(
-        linear_func, np.log(nums), np.log(counts))[0]
+    a, _ = scipy.optimize.curve_fit(linear_func, np.log(nums),
+                                    np.log(counts))[0]
 
     print(N1, a)
     return N1, a
@@ -278,6 +290,7 @@ def author_ref_dis():
     open('data/selected_paper_refs.json', 'w').write(json.dumps(pid_refs))
     logging.info("data saved to data/selected_paper_refs.json.")
 
+
 # 随机选择100位作者 将他们的参考文献引用次数分布画出来
 
 
@@ -297,7 +310,8 @@ def plot_author_ref_dis():
     for i, author in enumerate(authors):
         papers = t100_author_papers[author]
 
-        ax = axes[i//10][i % 10]
+
+        ax = axes[i // 10][i % 10]
 
         ref_count = defaultdict(int)
         # 作者的论文，查看查考文献
@@ -344,5 +358,6 @@ if __name__ == '__main__':
     stat_cit_dis()
 
     # author_ref_dis()
+
 
     # plot_author_ref_dis()
