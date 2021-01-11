@@ -5,6 +5,7 @@
 '''
 from basic_config import *
 
+import seaborn as sns
 
 # 随机选择100篇大于1000次引用的论文，然后得到他们的被引论文的ID列表
 
@@ -101,9 +102,11 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(30, 10, figsize=(40, 35))
+    fig, axes = plt.subplots(10, 10, figsize=(40, 35))
 
-    pids = np.random.choice(list(pid_author_num.keys()), size=300)
+    sns.set_theme(style='ticks')
+
+    pids = np.random.choice(list(pid_author_num.keys()), size=100)
 
     cn_n1s = defaultdict(list)
     cn_as = defaultdict(list)
@@ -136,7 +139,7 @@ def stat_cit_dis():
 
         ax.set_title(cn)
 
-        ax.set_xlabel('number of citations')
+        ax.set_xlabel('number of reuse')
 
         ax.set_ylabel('number of authors')
 
@@ -149,6 +152,8 @@ def stat_cit_dis():
         cn_n1s[cn].append(N1)
 
         cn_as[cn].append(a)
+
+    sns.despine()
 
     plt.tight_layout()
 
@@ -304,12 +309,13 @@ def plot_author_ref_dis():
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(list(t100_author_papers.keys()), size=100)
 
-    fig, axes = plt.subplots(10, 10, figsize=(50, 40))
+    fig, axes = plt.subplots(10, 10, figsize=(40, 35))
+
+    sns.set_theme(style='ticks')
 
     # 作者的数量
     for i, author in enumerate(authors):
         papers = t100_author_papers[author]
-
 
         ax = axes[i // 10][i % 10]
 
@@ -338,14 +344,15 @@ def plot_author_ref_dis():
 
         ax.set_title(len(papers))
 
-        ax.set_xlabel('number of citations')
+        ax.set_xlabel('number of reuse')
 
-        ax.set_ylabel('number of refs')
+        ax.set_ylabel('number of publications')
 
         ax.set_xscale('log')
 
         ax.set_yscale('log')
 
+    sns.despine()
     plt.tight_layout()
 
     plt.savefig('fig/paper_ref_cit_dis.png', dpi=200)
@@ -358,6 +365,4 @@ if __name__ == '__main__':
     stat_cit_dis()
 
     # author_ref_dis()
-
-
-    # plot_author_ref_dis()
+    plot_author_ref_dis()
