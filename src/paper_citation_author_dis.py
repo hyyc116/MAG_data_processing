@@ -133,7 +133,7 @@ def stat_cit_dis():
         if len(nums) == 1:
             continue
 
-        ax.plot(nums, counts, '-o')
+        ax.plot(nums, counts, '-o', c=sns.color_palette()[1])
 
         cn = len(selected_pid_cits[pid])
 
