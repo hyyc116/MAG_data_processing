@@ -111,10 +111,22 @@ def field_paper_dis():
             '--',
             label='1970')
 
+    ax.plot([2010] * 10,
+            np.linspace(np.min(ys), np.max(ys), 10),
+            '--',
+            label='2010')
+
+    ax.plot([2016] * 10,
+            np.linspace(np.min(ys), np.max(ys), 10),
+            '--',
+            label='2016')
+
     ax.set_xlabel('year')
     ax.set_ylabel('number of publications')
 
     ax.set_yscale('log')
+
+    ax.legend()
 
     ## 每一个领域论文的数量
     field_num = defaultdict(int)
