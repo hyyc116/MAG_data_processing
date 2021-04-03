@@ -94,7 +94,7 @@ def field_paper_dis():
 
     # fig1
 
-    fig1, axes = plt.subplot(1, 2, figsize=(9, 3.5))
+    fig1, axes = plt.subplots(1, 2, figsize=(9, 3.5))
 
     ax = axes[0]
     xs = []
