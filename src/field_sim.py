@@ -73,9 +73,81 @@ def fetch_field_cits():
     open('data/paper_field_citnum.json',
          'w').write(json.dumps(paper_field_citnum))
 
+    #### 42,420,293 1971~2010年 发表后10年内
     logging.info(
         f'{len(paper_field_citnum)} papers has citations in ten years after published.'
     )
+
+
+# 画出数据集内文章数量随着时间的变化，
+# 各个领域的文章数量分布
+def field_paper_dis():
+    logging.info('loading paper field ...')
+    paper_field = json.loads(open('data/pid_subject.json').read())
+
+    logging.info('loading paper year ...')
+    paper_year = json.loads(open('data/pid_pubyear.json').read())
+
+    logging.info('start to plotting ....')
+
+    year_counter = Counter(paper_year.values())
+
+    # fig1
+
+    fig1, axes = plt.subplot(1, 2, figsize=(9, 3.5))
+
+    ax = axes[0]
+    xs = []
+    ys = []
+    for year in sorted(year_counter.keys(), key=lambda x: int(x)):
+
+        xs.append(int(year))
+        ys.append(year_counter[year])
+
+    ax.plot(xs, ys)
+
+    ax.plot([1970] * 10,
+            np.linspace(np.min(ys), np.max(ys)),
+            '--',
+            label='1970')
+
+    ax.set_xlabel('year')
+    ax.set_ylabel('number of publications')
+
+    ax.set_yscale('log')
+
+    ## 每一个领域论文的数量
+    field_num = defaultdict(int)
+    for paper in paper_field.keys():
+
+        year = int(paper_year.get(paper, 1900))
+
+        if year < 1971 or year > 2010:
+            continue
+
+        field_num[paper_field[paper]] += 1
+
+    field_xs = []
+    field_ys = []
+    for field in sorted(field_num.keys(),
+                        key=lambda x: field_num[x],
+                        reverse=True):
+        field_xs.append(field)
+        field_ys.append(field_num[field])
+
+    ax = axes[1]
+
+    ax.bar(range(len(field_xs)), field_ys)
+
+    ax.set_xlabel('field ID')
+    ax.set_ylabel('number of publications')
+
+    ax.set_yscale('log')
+
+    plt.tight_layout()
+
+    plt.savefig('fig/fig1.png', dpi=400)
+    logging.info('fig saved to fig/fig1.png')
 
 
 if __name__ == '__main__':
