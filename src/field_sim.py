@@ -51,8 +51,8 @@ def fetch_field_cits():
         if fos1 is None or fos2 is None:
             continue
 
-        year1 = paper_year.get(paper_id, 1900)
-        year2 = paper_year.get(paper_reference_id, 1900)
+        year1 = int(paper_year.get(paper_id, 1900))
+        year2 = int(paper_year.get(paper_reference_id, 1900))
 
         if year1 < 1970 or year2 < 1970:
             continue
