@@ -153,4 +153,6 @@ def field_paper_dis():
 if __name__ == '__main__':
     # fetch_paper_field()
 
-    fetch_field_cits()
+    # fetch_field_cits()
+
+    field_paper_dis()
