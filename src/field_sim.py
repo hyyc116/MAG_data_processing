@@ -107,7 +107,7 @@ def field_paper_dis():
     ax.plot(xs, ys)
 
     ax.plot([1970] * 10,
-            np.linspace(np.min(ys), np.max(ys)),
+            np.linspace(np.min(ys), np.max(ys), 10),
             '--',
             label='1970')
 
