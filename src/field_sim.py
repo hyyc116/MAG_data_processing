@@ -36,6 +36,8 @@ def fetch_field_cits():
 
     sql = 'select paper_id,paper_reference_id from mag_core.paper_references'
 
+    paper_field_citnum = defaultdict(lambda: defaultdict(int))
+
     fos1_fos2_refnum = defaultdict(lambda: defaultdict(int))
     query_op = dbop()
     process = 0
@@ -57,10 +59,23 @@ def fetch_field_cits():
         if year1 < 1970 or year2 < 1970:
             continue
 
+        if year1 > 2010 or year2 > 2010:
+            continue
+
         fos1_fos2_refnum[fos1][fos2] += 1
+
+        if year2 - year1 <= 10:
+            paper_field_citnum[paper_reference_id][fos1] += 1
 
     open('data/fos1_fos2_refnum.json', 'w').write(json.dumps(fos1_fos2_refnum))
     logging.info('refnum data saved.')
+
+    open('data/paper_field_citnum.json',
+         'w').write(json.dumps(paper_field_citnum))
+
+    logging.info(
+        f'{len(paper_field_citnum)} papers has citations in ten years after published.'
+    )
 
 
 if __name__ == '__main__':
