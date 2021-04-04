@@ -26,56 +26,6 @@ def fetch_paper_field():
     )
 
 
-def fetch_expon_index():
-    sql = 'select paper_id,A.field_of_study_id from mag_core.paper_fields_of_study as A ,mag_core.fields_of_study as B where A.field_of_study_id=B.field_of_study_id and B.level=1'
-
-    query_op = dbop()
-
-    fos_num = defaultdict(int)
-
-    progress = 0
-    for paper_id, fos_id in query_op.query_database(sql):
-
-        progress += 1
-
-        fos_num[fos_id] += 1
-
-        if progress % 1000000 == 0:
-            logging.info(f'proress {progress} ...')
-
-    open('data/field_num.json', 'w').write(json.dumps(fos_num))
-    logging.info(f'{len(fos_num)} saved to data/field_num.json')
-
-    fig, ax = plt.subplots(1, 1, figsize=(4.5, 3.5))
-
-    plot_field_dis(fos_num, ax)
-
-    plt.tight_layout()
-
-    plt.savefig('fig/level1_field_dis.png', dpi=400)
-    logging.info('fig saved to fig/level1_field_dis.png')
-
-
-def plot_field_dis(fos_num, ax):
-
-    xs = []
-    ys = []
-
-    for i, fos in enumerate(
-            sorted(fos_num.keys(), key=lambda x: fos_num[x], reverse=True)):
-
-        xs.append(i + 1)
-        ys.append(fos_num[fos])
-
-    ax.plot(xs, ys)
-
-    ax.set_yscale('log')
-
-    ax.set_xlabel('field rank')
-
-    ax.set_ylabel('number of publications')
-
-
 def fetch_field_cits():
 
     logging.info('loading paper field ...')
