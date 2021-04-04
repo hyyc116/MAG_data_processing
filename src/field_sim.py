@@ -198,7 +198,7 @@ def field_paper_dis():
 
     ax = axes[1]
 
-    ax.plot(range(len(field_xs)) + 1, field_ys)
+    ax.plot(np.array(range(len(field_xs))) + 1, field_ys)
 
     ax.set_xlabel('field ID')
     ax.set_ylabel('number of publications')
