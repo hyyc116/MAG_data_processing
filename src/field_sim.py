@@ -94,7 +94,7 @@ def fetch_field_cits():
     for paper_id, paper_reference_id in query_op.query_database(sql):
 
         process += 1
-        if process % 10000000 == 0:
+        if process % 100000000 == 0:
             logging.info(f'progress {process} ....')
 
         fos1 = paper_field.get(paper_id, None)
@@ -280,6 +280,8 @@ if __name__ == '__main__':
     # fetch_paper_field()
 
     fetch_field_cits()
+
+    cal_ITR()
 
     # field_paper_dis()
     # fetch_expon_index()
