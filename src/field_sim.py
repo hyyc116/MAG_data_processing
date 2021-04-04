@@ -43,8 +43,8 @@ def fetch_expon_index():
         if progress % 1000000 == 0:
             logging.info(f'proress {progress} ...')
 
-    open('data/pid_subject.json', 'w').write(json.dumps(fos_num))
-    logging.info(f'{len(fos_num)} saved to data/pid_subject.json')
+    open('data/field_num.json', 'w').write(json.dumps(fos_num))
+    logging.info(f'{len(fos_num)} saved to data/field_num.json')
 
     fig, ax = plt.subplots(1, 1, figsize=(4.5, 3.5))
 
@@ -212,7 +212,7 @@ def field_paper_dis():
 
 
 if __name__ == '__main__':
-    # fetch_paper_field()
+    fetch_paper_field()
 
     # fetch_field_cits()
 
