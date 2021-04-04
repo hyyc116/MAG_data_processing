@@ -182,7 +182,7 @@ def cal_ITR():
 
         fos2_refnum = fos1_fos2_refnum[fos1]
 
-        total_refnum = float(np.sum(list(fos2_refnum.values())))
+        total_refnum = float(np.sum([float(i) for i in fos2_refnum.values()]))
 
         for fos2 in fos2_refnum.keys():
 
@@ -192,7 +192,7 @@ def cal_ITR():
 
             line = f'{fos2},{fos1},{func}'
 
-        fos1_fos2_func[fos2][fos1] = func
+            fos1_fos2_func[fos2][fos1] = func
 
     open('data/fos1_fos2_func.json', 'w').write(json.dumps(fos1_fos2_func))
     logging.info('fos fos cit sim saved to data/fos1_fos2_func.json')
