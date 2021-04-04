@@ -70,6 +70,18 @@ def plot_num_dis():
     level1_num = json.loads(open('data/field_level1_num.json').read())
     fos_childrens = json.loads(open('data/level0_level1s.json').read())
 
+    fos_name = {}
+    for line in open('data/fos_level0.txt'):
+
+        line = line.strip()
+
+        if line.startswith('fos'):
+            continue
+
+        fos, name, level = line.split(',')
+
+        fos_name[fos] = name
+
     logging.info(f'{len(fos_childrens)} level 0 field has children.')
 
     fig, axes = plt.subplots(5, 4, figsize=(18, 20))
@@ -92,7 +104,7 @@ def plot_num_dis():
 
         plot_field_dis(new_level1_num, ax)
 
-        ax.set_title(fos)
+        ax.set_title(fos_name[fos])
     plt.tight_layout()
 
     plt.savefig('fig/level1_field_dis.png', dpi=400)
