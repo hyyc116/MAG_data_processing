@@ -114,7 +114,7 @@ def fetch_field_cits():
 
         fos1_fos2_refnum[fos1][fos2] += 1
 
-        if year2 - year1 <= 10:
+        if year2 - year1 <= 5:
             paper_field_citnum[paper_reference_id][fos1] += 1
 
     open('data/fos1_fos2_refnum.json', 'w').write(json.dumps(fos1_fos2_refnum))
@@ -211,10 +211,19 @@ def field_paper_dis():
     logging.info('fig saved to fig/fig1.png')
 
 
+# 计算每一篇论文对各个学科的转化率
+def cal_ITR():
+    # 一篇论文在各个领域的
+    paper_field_citnum = json.loads(
+        open('data/paper_field_citnum.json').read())
+
+    pass
+
+
 if __name__ == '__main__':
     # fetch_paper_field()
 
-    # fetch_field_cits()
+    fetch_field_cits()
 
-    field_paper_dis()
+    # field_paper_dis()
     # fetch_expon_index()
