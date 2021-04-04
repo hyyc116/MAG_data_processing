@@ -63,6 +63,15 @@ def fetch_expon_index():
     open('data/field_level1_num.json', 'w').write(json.dumps(level1_num))
     logging.info(f'{len(level1_num)} saved to data/field_num.json')
 
+
+def plot_num_dis():
+
+    level0_num = json.loads(open('data/field_level0_num.json').read())
+    level1_num = json.loads(open('data/field_level1_num.json').read())
+    fos_childrens = json.loads(open('data/level0_level1s.json').read())
+
+    logging.info(f'{len(fos_childrens)} level 0 field has children.')
+
     fig, axes = plt.subplots(1, 2, figsize=(9, 4))
 
     ax = axes[0]
