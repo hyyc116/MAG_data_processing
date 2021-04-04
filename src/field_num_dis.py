@@ -117,17 +117,19 @@ def plot_field_dis(fos_num, ax):
                                           index_xs,
                                           fit_ys,
                                           p0=(0.2, -2))
-    plt.plot(np.array(index_xs), fit_ys)
-    plt.plot(index_xs, [expfunc(x, *popt) for x in index_xs],
-             '--',
-             label=u'Fitted Curve: $p(n)=%.2f*e^{%.2fn}$' % (popt[0], popt[1]),
-             c='r')
+    ax.plot(np.array(index_xs), fit_ys)
+    ax.plot(index_xs, [expfunc(x, *popt) for x in index_xs],
+            '--',
+            label=u'Fitted Curve: $p(n)=%.2f*e^{%.2fn}$' % (popt[0], popt[1]),
+            c='r')
 
     ax.set_yscale('log')
 
     ax.set_xlabel('field rank')
 
     ax.set_ylabel('number of publications')
+
+    ax.legend()
 
 
 if __name__ == '__main__':
