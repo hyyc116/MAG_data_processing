@@ -87,7 +87,7 @@ def plot_num_dis():
             num = level1_num.get(level1, None)
             if num is None:
                 continue
-            new_level1_num[level1] = level1_num[num]
+            new_level1_num[level1] = num
 
         plot_field_dis(new_level1_num, ax)
 
