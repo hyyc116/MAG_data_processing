@@ -72,14 +72,15 @@ def plot_num_dis():
 
     logging.info(f'{len(fos_childrens)} level 0 field has children.')
 
-    fig, axes = plt.subplots(1, 2, figsize=(9, 4))
+    fig, axes = plt.subplots(5, 4, figsize=(18, 20))
 
-    ax = axes[0]
+    ax = axes[0][0]
     plot_field_dis(level0_num, ax)
     ax.set_title('level 0 dis')
-    ax = axes[1]
 
-    for fos in fos_childrens:
+    for i, fos in enumerate(fos_childrens.keys()):
+        index = i + 1
+        ax = axes[index // 4][index % 4]
 
         new_level1_num = {}
 
@@ -91,7 +92,7 @@ def plot_num_dis():
 
         plot_field_dis(new_level1_num, ax)
 
-    ax.set_title('level 1 dis')
+        ax.set_title(fos)
     plt.tight_layout()
 
     plt.savefig('fig/level1_field_dis.png', dpi=400)
