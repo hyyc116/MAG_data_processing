@@ -198,7 +198,7 @@ def field_paper_dis():
 
     ax = axes[1]
 
-    ax.bar(range(len(field_xs)), field_ys)
+    ax.plot(range(len(field_xs)) + 1, field_ys)
 
     ax.set_xlabel('field ID')
     ax.set_ylabel('number of publications')
@@ -212,9 +212,9 @@ def field_paper_dis():
 
 
 if __name__ == '__main__':
-    fetch_paper_field()
+    # fetch_paper_field()
 
     # fetch_field_cits()
 
-    # field_paper_dis()
-    fetch_expon_index()
+    field_paper_dis()
+    # fetch_expon_index()
