@@ -110,7 +110,18 @@ def plot_field_dis(fos_num, ax):
         xs.append(i + 1)
         ys.append(fos_num[fos])
 
-    ax.plot(xs, ys)
+    expfunc = lambda t, a, b: a * np.exp(b * t)
+    index_xs = np.arange(len(xs))
+    fit_ys = np.array(ys) / float(np.sum(ys))
+    popt, pcov = scipy.optimize.curve_fit(expfunc,
+                                          index_xs,
+                                          fit_ys,
+                                          p0=(0.2, -2))
+    plt.plot(np.array(index_xs), fit_ys)
+    plt.plot(index_xs, [expfunc(x, *popt) for x in index_xs],
+             '--',
+             label=u'Fitted Curve: $p(n)=%.2f*e^{%.2fn}$' % (popt[0], popt[1]),
+             c='r')
 
     ax.set_yscale('log')
 
