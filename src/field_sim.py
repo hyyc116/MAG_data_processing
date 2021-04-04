@@ -213,11 +213,67 @@ def field_paper_dis():
 
 # 计算每一篇论文对各个学科的转化率
 def cal_ITR():
-    # 一篇论文在各个领域的
+    # 一篇论文在各个领域的引用次数
+    logging.info('loading paper field citnum ...')
     paper_field_citnum = json.loads(
         open('data/paper_field_citnum.json').read())
 
-    pass
+    logging.info('loading paper subject ...')
+    paper_subject = json.loads(open('data/pid_subject.json').read())
+
+    logging.info('loading fos fos refnum ...')
+    fos1_fos2_refnum = json.loads(open('data/fos1_fos2_refnum.json').read())
+
+    fos1_fos2_func = defaultdict(dict)
+
+    lines = ['fos1,fos2,func']
+
+    for fos1 in fos1_fos2_refnum.keys():
+
+        fos2_refnum = fos1_fos2_refnum[fos1]
+
+        total_refnum = float(np.sum(fos2_refnum.values()))
+
+        for fos2 in fos2_refnum.keys():
+
+            refnum = fos2_refnum[fos2]
+
+            func = refnum / total_refnum
+
+            line = f'{fos2},{fos1},{func}'
+
+        fos1_fos2_func[fos2][fos1] = func
+
+    open('data/fos1_fos2_func.json', 'w').write(json.dumps(fos1_fos2_func))
+    logging.info('fos fos cit sim saved to data/fos1_fos2_func.json')
+
+    open('data/fos1_fos2_func.csv', 'w').write('\n'.join(lines))
+
+    lines = ['pid,subject,Other Subject,I0,It,func,ITR']
+
+    for paper in paper_field_citnum.keys():
+
+        subject = paper_subject[paper]
+
+        I0 = paper_field_citnum[paper][subject]
+
+        for os in paper_field_citnum[paper].keys():
+
+            if os == subject:
+                continue
+
+            It = paper_field_citnum[paper][os]
+
+            func = fos1_fos2_func[subject][os]
+
+            ITR = It / float(I0)
+
+            line = f'{paper},{subject},{os},{func},{I0},{It},{ITR}'
+
+            lines.append(line)
+
+    open('data/paper_ITR.csv', 'w').write('\n'.join(lines))
+    logging.info("data saved to data/paper_ITR.csv")
 
 
 if __name__ == '__main__':
