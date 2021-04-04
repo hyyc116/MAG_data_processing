@@ -119,4 +119,5 @@ def plot_field_dis(fos_num, ax):
 
 
 if __name__ == '__main__':
-    fetch_expon_index()
+    # fetch_expon_index()
+    plot_num_dis()
