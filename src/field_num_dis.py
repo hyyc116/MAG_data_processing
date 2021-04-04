@@ -128,7 +128,7 @@ def plot_field_dis(fos_num, ax):
     popt, pcov = scipy.optimize.curve_fit(expfunc,
                                           index_xs,
                                           fit_ys,
-                                          p0=(0.2, -2))
+                                          p0=(0.2, -0.2))
     ax.plot(np.array(index_xs), fit_ys)
     ax.plot(index_xs, [expfunc(x, *popt) for x in index_xs],
             '--',
