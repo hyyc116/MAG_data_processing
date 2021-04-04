@@ -279,7 +279,7 @@ def cal_ITR():
 if __name__ == '__main__':
     # fetch_paper_field()
 
-    fetch_field_cits()
+    # fetch_field_cits()
 
     cal_ITR()
 
