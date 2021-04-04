@@ -61,9 +61,8 @@ def plot_field_dis(fos_num, ax):
     xs = []
     ys = []
 
-    for i, fos in sorted(fos_num.keys(),
-                         key=lambda x: fos_num[x],
-                         reverse=True):
+    for i, fos in enumerate(
+            sorted(fos_num.keys(), key=lambda x: fos_num[x], reverse=True)):
 
         xs.append(i + 1)
         ys.append(fos_num[fos])
