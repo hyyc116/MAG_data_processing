@@ -112,7 +112,8 @@ def autolabel(rects, ax, total_count=None, step=1, labels=None):
                     '{:}'.format(labels[index]),
                     ha='center',
                     va='bottom',
-                    fontsize=5)
+                    fontsize=5,
+                    rotation='vertical')
 
 
 class dbop:

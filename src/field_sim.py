@@ -182,7 +182,7 @@ def field_paper_dis():
 
     autolabel(rects, ax, labels=names)
 
-    ax.set_xlabel('field ID')
+    ax.set_xlabel('rank')
     ax.set_ylabel('number of publications')
 
     ax.set_yscale('log')
