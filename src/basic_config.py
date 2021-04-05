@@ -111,7 +111,8 @@ def autolabel(rects, ax, total_count=None, step=1, labels=None):
                     1.005 * height,
                     '{:}'.format(labels[index]),
                     ha='center',
-                    va='bottom')
+                    va='bottom',
+                    fontsize=5)
 
 
 class dbop:

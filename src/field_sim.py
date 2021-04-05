@@ -125,17 +125,20 @@ def field_paper_dis():
     ax.plot(xs, ys)
 
     ax.plot([1970] * 10,
-            np.linspace(np.min(ys), np.max(ys), 10),
+            np.linspace(np.min(ys) * 100,
+                        np.max(ys) * 1.1, 10),
             '--',
             label='1970')
 
     ax.plot([2010] * 10,
-            np.linspace(np.min(ys), np.max(ys), 10),
+            np.linspace(np.min(ys) * 100,
+                        np.max(ys) * 1.1, 10),
             '--',
             label='2010')
 
     ax.plot([2016] * 10,
-            np.linspace(np.min(ys), np.max(ys), 10),
+            np.linspace(np.min(ys) * 100,
+                        np.max(ys) * 1.1, 10),
             '--',
             label='2016')
 
