@@ -201,11 +201,20 @@ def cal_ITR():
 
     lines = ['pid,subject,Other Subject,I0,It,func,ITR']
 
+    I0_zero_count = defaultdict(int)
+
     for paper in paper_field_citnum.keys():
 
         subject = paper_subject[paper]
 
-        I0 = paper_field_citnum[paper][subject]
+        I0 = paper_field_citnum[paper].get(subject, 0)
+
+        if I0 == 0:
+            I0_zero_count[subject] += 1
+            continue
+
+        if I0 == 0:
+            continue
 
         for os in paper_field_citnum[paper].keys():
 
@@ -224,6 +233,9 @@ def cal_ITR():
 
     open('data/paper_ITR.csv', 'w').write('\n'.join(lines))
     logging.info("data saved to data/paper_ITR.csv")
+
+    open('data/I0_zero_count.json', 'w').write(json.dumps(I0_zero_count))
+    logging.info('data saved to data/I0_zero_count.json')
 
 
 if __name__ == '__main__':
