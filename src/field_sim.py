@@ -1,6 +1,10 @@
 #coding:utf-8
 from basic_config import *
 
+import pandas as pd
+
+import seaborn as sns
+
 
 def fetch_paper_field():
 
@@ -88,6 +92,18 @@ def field_paper_dis():
     logging.info('loading paper year ...')
     paper_year = json.loads(open('data/pid_pubyear.json').read())
 
+    fos_name = {}
+    for line in open('data/fos_level0.txt'):
+
+        line = line.strip()
+
+        if line.startswith('fos'):
+            continue
+
+        fos, name, level = line.split(',')
+
+        fos_name[fos] = name
+
     logging.info('start to plotting ....')
 
     year_counter = Counter(paper_year.values())
@@ -99,6 +115,9 @@ def field_paper_dis():
     xs = []
     ys = []
     for year in sorted(year_counter.keys(), key=lambda x: int(x)):
+
+        if int(year) > 2017:
+            continue
 
         xs.append(int(year))
         ys.append(year_counter[year])
@@ -140,15 +159,25 @@ def field_paper_dis():
 
     field_xs = []
     field_ys = []
+    names = []
+    total_num = 0
     for field in sorted(field_num.keys(),
                         key=lambda x: field_num[x],
                         reverse=True):
         field_xs.append(field)
+        names.append(fos_name[field])
         field_ys.append(field_num[field])
+
+        total_num += field_num[field]
 
     ax = axes[1]
 
-    ax.plot(np.array(range(len(field_xs))) + 1, field_ys)
+    rects = ax.bar(np.array(range(len(field_xs))) + 1, field_ys)
+
+    ax.set_xticks(np.array(range(len(field_xs))) + 1)
+    # ax.set_xticklabels()
+
+    autolabel(rects, ax, labels=names)
 
     ax.set_xlabel('field ID')
     ax.set_ylabel('number of publications')
@@ -159,6 +188,8 @@ def field_paper_dis():
 
     plt.savefig('fig/fig1.png', dpi=400)
     logging.info('fig saved to fig/fig1.png')
+
+    logging.info(f'{total_num} papers used.')
 
 
 # 计算每一篇论文对各个学科的转化率
@@ -243,7 +274,7 @@ if __name__ == '__main__':
 
     # fetch_field_cits()
 
-    cal_ITR()
+    # cal_ITR()
 
-    # field_paper_dis()
+    field_paper_dis()
     # fetch_expon_index()
