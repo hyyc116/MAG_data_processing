@@ -142,8 +142,8 @@ def field_paper_dis():
             '--',
             label='2016')
 
-    ax.set_xlabel('year')
-    ax.set_ylabel('number of publications')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Number of publications')
 
     ax.set_yscale('log')
 
@@ -182,8 +182,8 @@ def field_paper_dis():
 
     autolabel(rects, ax, labels=names)
 
-    ax.set_xlabel('rank')
-    ax.set_ylabel('number of publications')
+    ax.set_xlabel('Discipline rank')
+    ax.set_ylabel('Number of publications')
 
     ax.set_yscale('log')
 
@@ -271,6 +271,8 @@ def cal_ITR():
     open('data/I0_zero_count.json', 'w').write(json.dumps(I0_zero_count))
     logging.info('data saved to data/I0_zero_count.json')
 
+
+# 转化率计算
 
 if __name__ == '__main__':
     # fetch_paper_field()
