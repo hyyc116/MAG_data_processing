@@ -142,7 +142,7 @@ def field_paper_dis():
             '--',
             label='2016')
 
-    ax.set_xlabel('Year')
+    ax.set_xlabel('Year\n(a)')
     ax.set_ylabel('Number of publications')
 
     ax.set_yscale('log')
@@ -182,7 +182,7 @@ def field_paper_dis():
 
     autolabel(rects, ax, labels=names)
 
-    ax.set_xlabel('Discipline rank')
+    ax.set_xlabel('Discipline rank\n(b)')
     ax.set_ylabel('Number of publications')
 
     ax.set_yscale('log')
