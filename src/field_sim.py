@@ -63,12 +63,13 @@ def fetch_field_cits():
         if year1 < 1970 or year2 < 1970:
             continue
 
-        if year1 > 2010 or year2 > 2010:
+        # 这里不能同时控制，只控制被引论文的年份
+        if year2 > 2010:
             continue
 
         fos1_fos2_refnum[fos1][fos2] += 1
 
-        if year2 - year1 <= 5:
+        if abs(year2 - year1) <= 5:
             paper_field_citnum[paper_reference_id][fos1] += 1
 
     open('data/fos1_fos2_refnum.json', 'w').write(json.dumps(fos1_fos2_refnum))
@@ -277,9 +278,9 @@ def cal_ITR():
 if __name__ == '__main__':
     # fetch_paper_field()
 
-    # fetch_field_cits()
+    fetch_field_cits()
 
-    # cal_ITR()
+    cal_ITR()
 
     field_paper_dis()
     # fetch_expon_index()
