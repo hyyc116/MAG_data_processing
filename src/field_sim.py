@@ -43,6 +43,7 @@ def fetch_field_cits():
     paper_field_citnum = defaultdict(lambda: defaultdict(int))
 
     fos1_fos2_refnum = defaultdict(lambda: defaultdict(int))
+
     query_op = dbop()
     process = 0
     for paper_id, paper_reference_id in query_op.query_database(sql):
@@ -78,7 +79,7 @@ def fetch_field_cits():
     open('data/paper_field_citnum.json',
          'w').write(json.dumps(paper_field_citnum))
 
-    #### 42,420,293 1971~2010年 发表后10年内
+    #### 42,420,293 1971~2010年 发表后10年内 39,790,276
     logging.info(
         f'{len(paper_field_citnum)} papers has citations in ten years after published.'
     )
@@ -192,7 +193,7 @@ def field_paper_dis():
 
     plt.savefig('fig/fig1.png', dpi=400)
     logging.info('fig saved to fig/fig1.png')
-
+    # 100,639,211
     logging.info(f'{total_num} papers used.')
 
 
@@ -253,8 +254,8 @@ def cal_ITR():
 
         for os in paper_field_citnum[paper].keys():
 
-            if os == subject:
-                continue
+            # if os == subject:
+            #     continue
 
             It = paper_field_citnum[paper][os]
 
@@ -267,6 +268,7 @@ def cal_ITR():
             lines.append(line)
 
     open('data/paper_ITR.csv', 'w').write('\n'.join(lines))
+
     logging.info("data saved to data/paper_ITR.csv")
 
     open('data/I0_zero_count.json', 'w').write(json.dumps(I0_zero_count))
@@ -278,9 +280,9 @@ def cal_ITR():
 if __name__ == '__main__':
     # fetch_paper_field()
 
-    fetch_field_cits()
+    # fetch_field_cits()
 
     cal_ITR()
 
-    field_paper_dis()
+    # field_paper_dis()
     # fetch_expon_index()
