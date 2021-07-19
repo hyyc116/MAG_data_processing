@@ -156,6 +156,10 @@ def fetch_pid_c5():
 
         # ref_v
         ref_v = np.mean([pid_c5.get(ref, 0) for ref in refs])
+
+        if not ref_v > 0:
+            continue
+
         # 每一篇论文的ref_v
         FIR = float(pv) / ref_v
 
