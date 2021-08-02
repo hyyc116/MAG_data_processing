@@ -102,11 +102,11 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(10, 10, figsize=(40, 35))
+    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
 
     sns.set_theme(style='ticks')
 
-    pids = np.random.choice(list(pid_author_num.keys()), size=100)
+    pids = np.random.choice(list(pid_author_num.keys()), size=50)
 
     cn_n1s = defaultdict(list)
     cn_as = defaultdict(list)
@@ -114,7 +114,7 @@ def stat_cit_dis():
     for i, pid in enumerate(
             sorted(pids, key=lambda x: len(selected_pid_cits[x]))):
 
-        ax = axes[i // 10][i % 10]
+        ax = axes[i // 5][i % 5]
 
         author_num = pid_author_num[pid]
 
@@ -137,11 +137,11 @@ def stat_cit_dis():
 
         cn = len(selected_pid_cits[pid])
 
-        ax.set_title(cn)
+        ax.set_title(f'#citations: {cn}')
 
-        ax.set_xlabel('number of reuse')
+        ax.set_xlabel('Number of reuses')
 
-        ax.set_ylabel('number of authors')
+        ax.set_ylabel('Number of authors')
 
         ax.set_xscale('log')
 
@@ -160,6 +160,8 @@ def stat_cit_dis():
     plt.savefig('fig/t1000_100.png', dpi=200)
 
     logging.info('fig saved.')
+
+    return
 
     xs = []
     ys = []
@@ -307,9 +309,9 @@ def plot_author_ref_dis():
     paper_refs = json.loads(open('data/selected_paper_refs.json').read())
 
     # 随机选取100位作者,查看他们的引用次数分布情况
-    authors = np.random.choice(list(t100_author_papers.keys()), size=100)
+    authors = np.random.choice(list(t100_author_papers.keys()), size=50)
 
-    fig, axes = plt.subplots(10, 10, figsize=(40, 35))
+    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
 
     sns.set_theme(style='ticks')
 
@@ -317,7 +319,7 @@ def plot_author_ref_dis():
     for i, author in enumerate(authors):
         papers = t100_author_papers[author]
 
-        ax = axes[i // 10][i % 10]
+        ax = axes[i // 5][i % 5]
 
         ref_count = defaultdict(int)
         # 作者的论文，查看查考文献
@@ -342,11 +344,11 @@ def plot_author_ref_dis():
 
         ax.plot(xs, ys, '-o')
 
-        ax.set_title(len(papers))
+        ax.set_title(f'#pubs: {len(papers)}')
 
-        ax.set_xlabel('number of reuse')
+        ax.set_xlabel('Number of reuses')
 
-        ax.set_ylabel('number of publications')
+        ax.set_ylabel('Number of publications')
 
         ax.set_xscale('log')
 
