@@ -339,7 +339,7 @@ def plot_author_ref_dis():
     sns.set_theme(style='ticks')
 
     # 作者的数量
-    for i, author in enumerate(authors):
+    for i, author in enumerate(sorted(authors,key=lambda x:len(t100_author_papers[x]))):
         papers = t100_author_papers[author]
 
         ax = axes[i // 5][i % 5]
