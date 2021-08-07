@@ -102,7 +102,7 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
+    fig, axes = plt.subplots(10, 5, figsize=(25, 35))
 
     sns.set_theme(style='ticks')
 
@@ -398,4 +398,4 @@ if __name__ == '__main__':
     stat_cit_dis()
 
     # author_ref_dis()
-    plot_author_ref_dis()
+    # plot_author_ref_dis()
