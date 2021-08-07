@@ -334,7 +334,7 @@ def plot_author_ref_dis():
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(filtered_authors, size=50)
 
-    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
+    fig, axes = plt.subplots(10, 5, figsize=(15, 30))
 
     sns.set_theme(style='ticks')
 
@@ -373,6 +373,9 @@ def plot_author_ref_dis():
 
         ax.set_ylabel('Number of publications')
 
+        ax.tick_params(axis='x', labelsize=20)
+        ax.tick_params(axis='y', labelsize=20)
+
         ax.set_xscale('log')
 
         ax.set_yscale('log')
@@ -380,7 +383,7 @@ def plot_author_ref_dis():
     sns.despine()
     plt.tight_layout()
 
-    plt.savefig('fig/paper_ref_cit_dis.png', dpi=200)
+    plt.savefig('fig/paper_ref_cit_dis.png', dpi=600)
     logging.info('fig saved to fig/paper_ref_cit_dis.png.')
 
 
