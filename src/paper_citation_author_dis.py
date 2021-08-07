@@ -147,6 +147,11 @@ def stat_cit_dis():
 
         ax.set_yscale('log')
 
+        ax.tick_params(axis='x', labelsize=20)
+        ax.tick_params(axis='y', labelsize=20)
+
+
+
         N1, a = fit_powlaw_N1(nums, counts)
 
         cn_n1s[cn].append(N1)
@@ -157,7 +162,7 @@ def stat_cit_dis():
 
     plt.tight_layout()
 
-    plt.savefig('fig/t1000_100.png', dpi=200)
+    plt.savefig('fig/t1000_100.png', dpi=600)
 
     logging.info('fig saved.')
 
@@ -334,7 +339,7 @@ def plot_author_ref_dis():
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(filtered_authors, size=50)
 
-    fig, axes = plt.subplots(10, 5, figsize=(15, 30))
+    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
 
     sns.set_theme(style='ticks')
 
@@ -390,7 +395,7 @@ def plot_author_ref_dis():
 if __name__ == '__main__':
     # rand_select_papers()
 
-    # stat_cit_dis()
+    stat_cit_dis()
 
     # author_ref_dis()
     plot_author_ref_dis()

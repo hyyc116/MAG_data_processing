@@ -63,10 +63,10 @@ mpl.rcParams['axes.prop_cycle'] = cycler('color', color_sequence)
 
 params = {
     'legend.fontsize': 8,
-    'axes.labelsize': 10,
-    'axes.titlesize': 12,
-    'xtick.labelsize': 8,
-    'ytick.labelsize': 8
+    'axes.labelsize': 20,
+    'axes.titlesize': 20,
+    'xtick.labelsize': 20,
+    'ytick.labelsize': 20
 }
 pylab.rcParams.update(params)
 
