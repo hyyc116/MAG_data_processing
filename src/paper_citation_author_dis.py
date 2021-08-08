@@ -398,4 +398,4 @@ if __name__ == '__main__':
     stat_cit_dis()
 
     # author_ref_dis()
-    # plot_author_ref_dis()
+    plot_author_ref_dis()
