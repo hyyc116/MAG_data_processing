@@ -102,7 +102,7 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(4, 5, figsize=(25, 14))
+    fig, axes = plt.subplots(4, 5, figsize=(20, 14))
 
     sns.set_theme(style='ticks')
 
@@ -384,6 +384,8 @@ def plot_author_ref_dis():
         ax.set_xscale('log')
 
         ax.set_yscale('log')
+
+
 
     sns.despine()
     plt.tight_layout()
