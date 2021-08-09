@@ -147,8 +147,8 @@ def stat_cit_dis():
 
         ax.set_yscale('log')
 
-        ax.tick_params(axis='x', labelsize=20)
-        ax.tick_params(axis='y', labelsize=20)
+        ax.tick_params(axis='x', labelsize=10)
+        ax.tick_params(axis='y', labelsize=10)
 
 
 
@@ -378,8 +378,8 @@ def plot_author_ref_dis():
 
         ax.set_ylabel('Number of publications')
 
-        ax.tick_params(axis='x', labelsize=20)
-        ax.tick_params(axis='y', labelsize=20)
+        ax.tick_params(axis='x', labelsize=10)
+        ax.tick_params(axis='y', labelsize=10)
 
         ax.set_xscale('log')
 
