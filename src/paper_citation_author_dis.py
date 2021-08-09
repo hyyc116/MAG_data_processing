@@ -102,11 +102,11 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(10, 5, figsize=(25, 35))
+    fig, axes = plt.subplots(4, 5, figsize=(25, 14))
 
     sns.set_theme(style='ticks')
 
-    pids = np.random.choice(list(pid_author_num.keys()), size=50)
+    pids = np.random.choice(list(pid_author_num.keys()), size=20)
 
     cn_n1s = defaultdict(list)
     cn_as = defaultdict(list)
@@ -337,9 +337,9 @@ def plot_author_ref_dis():
         filtered_authors.append(author)
 
     # 随机选取100位作者,查看他们的引用次数分布情况
-    authors = np.random.choice(filtered_authors, size=50)
+    authors = np.random.choice(filtered_authors, size=20)
 
-    fig, axes = plt.subplots(10, 5, figsize=(20, 35))
+    fig, axes = plt.subplots(4, 5, figsize=(20, 14))
 
     sns.set_theme(style='ticks')
 
