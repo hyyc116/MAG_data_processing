@@ -65,8 +65,8 @@ params = {
     'legend.fontsize': 8,
     'axes.labelsize': 20,
     'axes.titlesize': 20,
-    'xtick.labelsize': 20,
-    'ytick.labelsize': 20
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10
 }
 pylab.rcParams.update(params)
 
