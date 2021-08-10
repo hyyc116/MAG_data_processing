@@ -391,7 +391,7 @@ def plot_author_ref_dis():
 
         ax.set_xlabel('Number of reuses')
 
-        ax.set_ylabel('Number of references')
+        ax.set_ylabel('Number of cited publications')
 
         ax.tick_params(axis='x', labelsize=10)
         ax.tick_params(axis='y', labelsize=10)
