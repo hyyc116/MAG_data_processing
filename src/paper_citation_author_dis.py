@@ -101,9 +101,10 @@ def stat_cit_dis():
                 # print(pid_seq_author[cit])
 
                 pid_author_num[pid][author] += 1
+                
     
     filtered_pids = []
-    
+
     
     for pid in pid_author_num.keys():
 
