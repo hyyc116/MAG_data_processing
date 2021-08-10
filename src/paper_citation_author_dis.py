@@ -102,7 +102,7 @@ def stat_cit_dis():
 
                 pid_author_num[pid][author] += 1
 
-    fig, axes = plt.subplots(8, 5, figsize=(20, 28))
+    fig, axes = plt.subplots(10, 4, figsize=(20, 40))
 
     sns.set_theme(style='ticks')
 
@@ -114,7 +114,7 @@ def stat_cit_dis():
     for i, pid in enumerate(
             sorted(pids, key=lambda x: len(selected_pid_cits[x]))):
 
-        ax = axes[i // 5][i % 5]
+        ax = axes[i // 4][i % 4]
 
         author_num = pid_author_num[pid]
 
@@ -331,7 +331,7 @@ def plot_author_ref_dis():
 
         refnum_counter = Counter(ref_count.values())
 
-        if len(refnum_counter.keys())<3:
+        if len(refnum_counter.keys())<4:
             continue
         
         filtered_authors.append(author)
@@ -339,7 +339,7 @@ def plot_author_ref_dis():
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(filtered_authors, size=40)
 
-    fig, axes = plt.subplots(8, 5, figsize=(20, 28))
+    fig, axes = plt.subplots(10, 4, figsize=(20, 40))
 
     sns.set_theme(style='ticks')
 
@@ -347,7 +347,7 @@ def plot_author_ref_dis():
     for i, author in enumerate(sorted(authors,key=lambda x:len(t100_author_papers[x]))):
         papers = t100_author_papers[author]
 
-        ax = axes[i // 5][i % 5]
+        ax = axes[i // 4][i % 4]
 
         ref_count = defaultdict(int)
         # 作者的论文，查看查考文献

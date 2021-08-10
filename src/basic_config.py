@@ -63,7 +63,7 @@ mpl.rcParams['axes.prop_cycle'] = cycler('color', color_sequence)
 
 params = {
     'legend.fontsize': 8,
-    'axes.labelsize': 20,
+    'axes.labelsize': 15,
     'axes.titlesize': 20,
     'xtick.labelsize': 10,
     'ytick.labelsize': 10
