@@ -101,7 +101,7 @@ def stat_cit_dis():
                 # print(pid_seq_author[cit])
 
                 pid_author_num[pid][author] += 1
-                
+
     
     filtered_pids = []
 
@@ -177,7 +177,7 @@ def stat_cit_dis():
 
     plt.tight_layout()
 
-    plt.savefig('fig/t1000_100.png', dpi=600)
+    plt.savefig('fig/t1000_100.png', dpi=200)
 
     logging.info('fig saved.')
 
@@ -405,7 +405,7 @@ def plot_author_ref_dis():
     sns.despine()
     plt.tight_layout()
 
-    plt.savefig('fig/paper_ref_cit_dis.png', dpi=600)
+    plt.savefig('fig/paper_ref_cit_dis.png', dpi=200)
     logging.info('fig saved to fig/paper_ref_cit_dis.png.')
 
 
