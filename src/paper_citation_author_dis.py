@@ -104,7 +104,8 @@ def stat_cit_dis():
     
     filtered_pids = []
     
-    for pid in pid_author_num.keys(),:
+    
+    for pid in pid_author_num.keys():
 
         author_num = pid_author_num[pid]
 
