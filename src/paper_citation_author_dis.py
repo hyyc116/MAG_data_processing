@@ -397,7 +397,7 @@ def plot_author_ref_dis():
 if __name__ == '__main__':
     # rand_select_papers()
 
-    stat_cit_dis()
+    # stat_cit_dis()
 
     # author_ref_dis()
-    # plot_author_ref_dis()
+    plot_author_ref_dis()
