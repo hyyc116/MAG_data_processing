@@ -328,10 +328,22 @@ def plot_author_ref_dis():
     #  论文参考文献关系
     paper_refs = json.loads(open('data/selected_paper_refs.json').read())
 
-    filtered_authors = []
+
+    ## 10~20, 20~50,50~100,100~200,200+
+    filtered_20_authors = []
+    filtered_50_authors = []
+    filtered_100_authors = []
+    filtered_200_authors = []
+    filtered_500_authors = []
+    filtered_1000_authors = []
+
+
+
     # 作者的数量
     for i, author in enumerate(t100_author_papers.keys()):
         papers = t100_author_papers[author]
+
+        pnum = len(papers)
 
         ref_count = defaultdict(int)
         # 作者的论文，查看查考文献
@@ -348,8 +360,33 @@ def plot_author_ref_dis():
 
         if len(refnum_counter.keys())<4:
             continue
+
+        if pnum<20:
+            filtered_20_authors.append(author)
         
-        filtered_authors.append(author)
+        elif pnum<50:
+            filtered_50_authors.append(author)
+        
+        elif pnum<100:
+            filtered_100_authors.append(author)
+
+        elif pnum<200:
+            filtered_200_authors.append(author)
+        elif pnum<500:
+            filtered_500_authors.append(author)
+        else:
+            filtered_1000_authors.append(author)
+        
+        
+    filtered_authors = [] 
+
+    filtered_authors.extend(np.random.choice(filtered_20_authors, size=40))
+    filtered_authors.extend(np.random.choice(filtered_50_authors, size=40))
+    filtered_authors.extend(np.random.choice(filtered_100_authors, size=40))
+    filtered_authors.extend(np.random.choice(filtered_200_authors, size=40))
+    filtered_authors.extend(np.random.choice(filtered_500_authors, size=40))
+    filtered_authors.extend(np.random.choice(filtered_1000_authors, size=40))
+
 
     # 随机选取100位作者,查看他们的引用次数分布情况
     authors = np.random.choice(filtered_authors, size=40)
