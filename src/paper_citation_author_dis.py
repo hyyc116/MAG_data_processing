@@ -168,6 +168,8 @@ def stat_cit_dis():
         ax.tick_params(axis='x', labelsize=10)
         ax.tick_params(axis='y', labelsize=10)
 
+        ax.legend()
+
 
 
         N1, a = fit_powlaw_N1(nums, counts)
@@ -441,6 +443,8 @@ def plot_author_ref_dis():
         ax.set_xscale('log')
 
         ax.set_yscale('log')
+
+        ax.legend()
 
 
     sns.despine()
