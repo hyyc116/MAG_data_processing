@@ -151,7 +151,7 @@ def stat_cit_dis():
         
         N1,A = fit_powlaw_N1(nums,counts)
 
-        ax.plot(nums, counts, '-o', c=sns.color_palette()[1],label="$\alpha={:.2f}$".format(A))
+        ax.plot(nums, counts, '-o', c=sns.color_palette()[1],label="$\\alpha={:.2f}$".format(A))
 
         cn = len(selected_pid_cits[pid])
 
@@ -429,7 +429,7 @@ def plot_author_ref_dis():
         
         N1,alpha =  fit_powlaw_N1(xs, ys)
 
-        ax.plot(xs, ys, '-o',label = "$\alpha={:.2f}$".format(alpha))
+        ax.plot(xs, ys, '-o',label = "$\\alpha={:.2f}$".format(alpha))
 
         ax.set_title(f'#pubs: {len(papers)}')
 
