@@ -3,6 +3,7 @@
 
 [一篇论文被一位作者反复引用，那么这些作者引用次数的分布是怎样的]
 '''
+from itertools import count
 from basic_config import *
 
 import seaborn as sns
@@ -147,8 +148,10 @@ def stat_cit_dis():
 
         if len(nums) == 1:
             continue
+        
+        N1,A = fit_powlaw_N1(nums,counts)
 
-        ax.plot(nums, counts, '-o', c=sns.color_palette()[1])
+        ax.plot(nums, counts, '-o', c=sns.color_palette()[1],label="$\alpha={:.2f}$".format(A))
 
         cn = len(selected_pid_cits[pid])
 
@@ -421,8 +424,10 @@ def plot_author_ref_dis():
             xs.append(refnum)
 
             ys.append(refnum_counter[refnum])
+        
+        N1,alpha =  fit_powlaw_N1(xs, ys)
 
-        ax.plot(xs, ys, '-o')
+        ax.plot(xs, ys, '-o',label = "$\alpha={:.2f}$".format(alpha))
 
         ax.set_title(f'#pubs: {len(papers)}')
 
@@ -438,7 +443,6 @@ def plot_author_ref_dis():
         ax.set_yscale('log')
 
 
-
     sns.despine()
     plt.tight_layout()
 
@@ -446,10 +450,30 @@ def plot_author_ref_dis():
     logging.info('fig saved to fig/paper_ref_cit_dis.png.')
 
 
+def fit_powlaw_N1(nums, counts):
+    # print(len(nums), len(counts))
+
+    N1 = None
+    for i, num in enumerate(nums):
+
+        N1 = num
+        if counts[i] == 1:
+            break
+
+    counts = np.array(counts) / float(np.sum(counts))
+
+    def linear_func(x, a, b):
+        return a * x + b
+
+    a, _ = scipy.optimize.curve_fit(linear_func, np.log(nums),
+                                    np.log(counts))[0]
+
+    return N1, a
+
 if __name__ == '__main__':
     # rand_select_papers()
 
-    # stat_cit_dis()
+    stat_cit_dis()
 
     # author_ref_dis()
     plot_author_ref_dis()
